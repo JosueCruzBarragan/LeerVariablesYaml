@@ -32,7 +32,7 @@ jobs:
       - name: Leer variables del archivo my_vars.yml
         id: vars
         run: |
-          echo "::set-output name=var1::$(cat my_vars.yaml | yq eval '.variables.var1' -)"
+          echo "::set-output name=var1::$(cat my_vars.yml | yq eval '.variables.var1' -)"
         
       - name: Usar las variables en otro paso
         run: |
