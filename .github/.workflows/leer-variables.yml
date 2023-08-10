@@ -1,10 +1,20 @@
 name: Mi Flujo de Trabajo
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
+      - 'fix/**'
+      - 'test/**'
+
+  workflow_dispatch:
+    inputs:
+      dynamodb:
+        description: 'Activa la insercion de datos de la carpeta tablas DynamoDB'
+        required: false
+        default: false
+        type: boolean
+
 
 jobs:
   mi_trabajo:
