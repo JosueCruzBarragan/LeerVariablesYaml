@@ -22,25 +22,17 @@ jobs:
           tar xf yq_linux_amd64.tar.gz
           mv yq_linux_amd64 /usr/local/bin/
         
-      - name: Leer variables del archivo my_vars.yml
-        id: vars
-        run: |
-          echo "::set-output name=var1::$(cat my_vars.yml | yq eval '.variables.var1' -)"
-        
-      - name: Usar las variables en otro paso
-        run: |
-          echo "La variable var1 es ${{ steps.vars.outputs.var1 }}"
 
-        #############################
-        # Diccoinario o propiedades #
-        #############################
+        ###############
+        # Diccionario #
+        ###############
 
       - name: Leer variables del archivo config_vars.yml
         id: dict
         run: |
-          echo "::set-output name=clave1::$(cat config_vars.yml | yq eval '.mi_diccionario.clave1' -r)"
-          echo "::set-output name=subclave1::$(cat config_vars.yml | yq eval '.mi_diccionario.clave2.subclave1' -r)"
-          echo "::set-output name=subclave2::$(cat config_vars.yml | yq eval '.mi_diccionario.clave2.subclave2' -r)"
+          echo "clave1=$(cat config_vars.yml | yq eval '.mi_diccionario.clave1' -r)" >> $GITHUB_OUTPUT
+          echo "subclave1=$(cat config_vars.yml | yq eval '.mi_diccionario.clave2.subclave1' -r)" >> $GITHUB_OUTPUT
+          echo "subclave2=$(cat config_vars.yml | yq eval '.mi_diccionario.clave2.subclave2' -r)" >> $GITHUB_OUTPUT
           echo "clave3=$(cat config_vars.yml | yq eval '.mi_diccionario.clave3' -r)" >> $GITHUB_OUTPUT
         
       - name: Usar las variables como mi_diccionario en otro paso
