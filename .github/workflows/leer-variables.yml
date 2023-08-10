@@ -78,7 +78,7 @@ jobs:
           echo "${{ steps.yaml.outputs.mi_diccionario__clave2__subclave1 }}"
           echo "${{ steps.yaml.outputs.mi_diccionario__clave2__subclave2 }}"
           echo "${{ steps.yaml.outputs.mi_diccionario__clave3 }}"
-          echo "${{ steps.yaml.outputs.mi_diccionario__clave2__subclave2 }}[1]"
+          echo "${{ steps.yaml.outputs.mi_diccionario__clave2__subclave2__1 }}"
           echo "Fin"
       
 

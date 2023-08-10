@@ -2,7 +2,5 @@ mi_diccionario:
   clave1: "Valor de la clave1"
   clave2:
     subclave1: "Valor de la clave2 subclave1"
-    subclave2:
-      - 5
-      - 7
+    subclave2: [5, 7]
   clave3: true
