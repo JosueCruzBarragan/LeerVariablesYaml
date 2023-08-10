@@ -38,4 +38,4 @@ jobs:
         
       - name: Usar las variables en otro paso
         run: |
-          echo "La variable lista es ${{ steps.vars2.outputs.lista }}"
+          echo "La variable lista es ${{ steps.vars2.outputs.lista[0] }}"
