@@ -31,16 +31,21 @@ jobs:
         run: |
           echo "La variable var1 es ${{ steps.vars.outputs.var1 }}"
 
-      - name: Leer variables del archivo my_vars.yml como propiedades
+        #############################
+        # Diccoinario o propiedades #
+        #############################
+
+      - name: Leer variables del archivo config_vars.yml como mi_diccionario
         id: vars_prop
         run: |
-          echo "::set-output name=propiedades::$(cat my_vars.yml | yq eval '.variables' -)"
+          echo "::set-output name=mi_diccionario::$(cat config_vars.yml | yq eval '.mi_diccionario' -)"
         
-      - name: Usar las variables como propiedades en otro paso
+      - name: Usar las variables como mi_diccionario en otro paso
         run: |
-          echo "Las propiedades son ${{ steps.vars_prop.outputs.propiedades.var1 }}"
-          echo "Las propiedades son ${{ steps.vars_prop.outputs.propiedades.var2 }}"
-          echo "Las propiedades son ${{ steps.vars_prop.outputs.propiedades.var3 }}"
+          echo "clave1: ${{ steps.vars_prop.outputs.mi_diccionario.clave1 }}"
+          echo "clave2.subclave1: ${{ steps.vars_prop.outputs.mi_diccionario.clave2.subclave1 }}"
+          echo "clave2.subclave2: ${{ steps.vars_prop.outputs.mi_diccionario.clave2.subclave2 }}"
+          echo "clave3: ${{ steps.vars_prop.outputs.mi_diccionario.clave3 }}"
 
       - name: Leer variables del archivo others.yml
         id: vars2
