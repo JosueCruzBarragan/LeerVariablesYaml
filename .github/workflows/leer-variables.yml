@@ -48,7 +48,7 @@ jobs:
           echo "Valor de clave1: ${{ steps.dict.outputs.clave1 }}"
           echo "Valor de clave2.subclave1: ${{ steps.dict.outputs.subclave1 }}"
           echo "Valor de clave2.subclave2: ${{ steps.dict.outputs.subclave2 }}"
-          echo "Valor de clave3: $clave3"
+          echo "Valor de clave3: ${{ steps.dict.outputs.clave3 }}"
 
       ##########################################################################################
 
