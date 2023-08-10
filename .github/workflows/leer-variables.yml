@@ -34,7 +34,7 @@ jobs:
       - name: Leer variables del archivo others.yml
         id: vars2
         run: |
-          echo "::set-output name=c::$(cat others.yml | yq eval '.Var_mix.lista' -)"
+          echo "::set-output name=c::$(cat other.yml | yq eval '.Var_mix.lista' -)"
         
       - name: Usar las variables en otro paso
         run: |
