@@ -35,7 +35,6 @@ jobs:
         ###############
         # Diccionario #
         ###############
-
       - name: Leer variables del archivo config_vars.yml
         id: dict
         run: |
@@ -52,6 +51,9 @@ jobs:
           echo "Valor de clave3: ${{ steps.dict.outputs.clave3 }}"
           
 
+        #################
+        # Ejecutar BASH #
+        #################
       - name: Leer variable desde el workflow
         run: |
           echo "Nombre: ${{ github.event.inputs.comment }}"
@@ -59,3 +61,22 @@ jobs:
       - name: Ejecutar script Bash
         run: bash ./file.sh -c "${{ github.event.inputs.comment }}"
 
+        #####################
+        # Crear diccionario #
+        #####################
+      - name: Crear Todos var
+        id: JSON_CONTENT
+        run: |
+          JSON_CONTENT="${{ steps.dict.outputs }}"
+          echo JSON_CONTENT
+          echo "Todos=$(cat config_vars.yml | yq eval '.mi_diccionario' -r)" >> $GITHUB_OUTPUT
+          echo Todos
+          echo $Todos.clave3
+
+      - name: Leer variable desde el workflow
+        run: |
+           echo "Todos: $Todos.clave3
+      
+
+
+     
