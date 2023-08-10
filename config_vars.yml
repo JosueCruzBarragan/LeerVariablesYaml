@@ -3,4 +3,4 @@ mi_diccionario:
   clave2:
     subclave1: subvalor1
     subclave2: [1, 3]
-  clave3: [1, 3]
+  clave3: [5, 6]

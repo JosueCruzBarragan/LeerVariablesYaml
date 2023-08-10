@@ -11,7 +11,7 @@ jobs:
     
     steps:
       - name: Checkout del repositorio
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         
       - name: Descargar yq # Referencia: https://github.com/mikefarah/yq
         # 1) Descargar el archivo tar.gz
@@ -35,26 +35,20 @@ jobs:
         # Diccoinario o propiedades #
         #############################
 
-      - name: Leer variables del archivo config_vars.yml como mi_diccionario
-        id: vars_prop
+      - name: Leer variables del archivo config_vars.yml
+        id: dict
         run: |
-          echo "::set-output name=clave2::$(cat config_vars.yml | yq eval '.mi_diccionario.clave2' -)"
+          echo "::set-output name=clave1::$(cat config_vars.yml | yq eval '.mi_diccionario.clave1' -r)"
+          echo "::set-output name=subclave1::$(cat config_vars.yml | yq eval '.mi_diccionario.clave2.subclave1' -r)"
+          echo "::set-output name=subclave2::$(cat config_vars.yml | yq eval '.mi_diccionario.clave2.subclave2' -r)"
+          echo "{clave3}={$(cat config_vars.yml | yq eval '.mi_diccionario.clave3' -r)}" >> $GITHUB_OUTPUT
         
       - name: Usar las variables como mi_diccionario en otro paso
         run: |
-          echo "clave1: ${{ steps.vars_prop.outputs.mi_diccionario.clave1 }}"
-          echo "clave2.subclave1: ${{ steps.vars_prop.outputs.clave2.subclave1 }}"
-          echo "clave2.subclave2: ${{ steps.vars_prop.outputs.clave2.subclave2 }}"
-          echo "clave3: ${{ steps.vars_prop.outputs.mi_diccionario.clave3 }}"
+          echo "Valor de clave1: ${{ steps.dict.outputs.clave1 }}"
+          echo "Valor de clave2.subclave1: ${{ steps.dict.outputs.subclave1 }}"
+          echo "Valor de clave2.subclave2: ${{ steps.dict.outputs.subclave2 }}"
+          echo "Valor de clave3: ${{ steps.dict.outputs.clave1 }}"
 
       ##########################################################################################
 
-      - name: Leer variables del archivo others.yml
-        id: vars2
-        run: |
-          echo "::set-output name=lista::$(cat other.yml | yq eval '.Var_mix.lista' -)"
-        
-      - name: Usar las variables en otro paso
-        run: |
-          echo "La variable lista es ${{ steps.vars2.outputs.lista }}"
-          echo "La variable lista[0] es ${{ steps.vars2.outputs.lista[0] }}"
