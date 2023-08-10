@@ -67,7 +67,7 @@ jobs:
       - uses: actions-tools/yaml-outputs@v2
         id: yaml
         with:
-          file-path: './config_vars.yaml'
+          file-path: './config_vars.yml'
       - run: |
           echo "${{ steps.yaml.outputs.mi_diccionario__clave1 }}"
           echo "${{ steps.yaml.outputs.mi_diccionario__clave2__subclave1 }}"
