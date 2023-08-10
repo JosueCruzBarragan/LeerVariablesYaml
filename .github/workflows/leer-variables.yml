@@ -7,13 +7,13 @@ on:
       - 'fix/**'
       - 'test/**'
 
-  workflow_dispatch:
-    inputs:
-      dynamodb:
-        description: 'Activa la insercion de datos de la carpeta tablas DynamoDB'
-        required: false
-        default: false
-        type: boolean
+  #workflow_dispatch:
+  #  inputs:
+  #    dynamodb:
+  #      description: 'Activa la insercion de datos de la carpeta tablas DynamoDB'
+  #      required: false
+  #      default: false
+  #      type: boolean
 
 jobs:
   mi_trabajo:
@@ -29,11 +29,10 @@ jobs:
           tar xvf yq_linux_amd64.tar.gz
           mv yq_linux_amd64 /usr/local/bin/
         
-      - name: Leer variables del archivo variables.yml
+      - name: Leer variables del archivo my_vars.yml
         id: vars
         run: |
-          mv variables /usr/local/bin/
-          echo "::set-output name=var1::$(cat variables.yml | yq eval '.variables.var1' -)"
+          echo "::set-output name=var1::$(cat my_vars.yaml | yq eval '.variables.var1' -)"
         
       - name: Usar las variables en otro paso
         run: |
