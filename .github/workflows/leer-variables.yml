@@ -27,7 +27,7 @@ jobs:
         run: |
           wget https://github.com/mikefarah/yq/releases/download/v4.13.2/yq_linux_amd64.tar.gz
           tar xvf yq_linux_amd64.tar.gz
-          mv yq /usr/local/bin/
+          mv yq_linux_amd64 /usr/local/bin/
         
       - name: Leer variables del archivo variables.yml
         id: vars
