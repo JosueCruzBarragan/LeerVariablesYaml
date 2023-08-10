@@ -1,0 +1,25 @@
+name: Mi Flujo de Trabajo
+
+on: [push]
+
+jobs:
+  mi_trabajo:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout del repositorio
+        uses: actions/checkout@v2
+
+      - name: Descargar yq-go
+        run: |
+          wget https://github.com/mikefarah/yq/releases/download/v4.13.2/yq_linux_amd64.tar.gz
+          tar xvf yq_linux_amd64.tar.gz
+          mv yq /usr/local/bin/
+        
+      - name: Leer variables del archivo config.yml
+        id: vars
+        run: echo "::set-output name=var1::$(cat config.yml | yq eval '.variables.var1' -)"
+        
+      - name: Usar las variables en otro paso
+        run: |
+          echo "La variable var1 es ${{ steps.vars.outputs.var1 }}"
