@@ -67,15 +67,11 @@ jobs:
       - name: Crear Todos var
         id: JSON_CONTENT
         run: |
-          JSON_CONTENT="${{ steps.dict.outputs }}"
-          echo JSON_CONTENT
-          echo "Todos=$(cat config_vars.yml | yq eval '.mi_diccionario' -r)" >> $GITHUB_OUTPUT
-          echo Todos
-          echo $Todos.clave3
+          echo "JSON_CONTENT=$(cat config_vars.yml | yq eval '.mi_diccionario' -r)" >> $GITHUB_OUTPUT
 
       - name: Leer variable desde el workflow
         run: |
-           echo "Todos: $Todos.clave3
+          echo "JSON_CONTENT: ${{ steps.JSON_CONTENT.outputs.clave1 }}"
       
 
 
