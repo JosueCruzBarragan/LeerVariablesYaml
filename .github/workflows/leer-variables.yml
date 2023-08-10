@@ -38,14 +38,16 @@ jobs:
       - name: Leer variables del archivo config_vars.yml como mi_diccionario
         id: vars_prop
         run: |
-          echo "::set-output name=mi_diccionario::$(cat config_vars.yml | yq eval '.mi_diccionario' -)"
+          echo "::set-output name=clave2::$(cat config_vars.yml | yq eval '.mi_diccionario.clave2' -)"
         
       - name: Usar las variables como mi_diccionario en otro paso
         run: |
           echo "clave1: ${{ steps.vars_prop.outputs.mi_diccionario.clave1 }}"
-          echo "clave2.subclave1: ${{ steps.vars_prop.outputs.mi_diccionario.clave2.subclave1 }}"
-          echo "clave2.subclave2: ${{ steps.vars_prop.outputs.mi_diccionario.clave2.subclave2 }}"
+          echo "clave2.subclave1: ${{ steps.vars_prop.outputs.clave2.subclave1 }}"
+          echo "clave2.subclave2: ${{ steps.vars_prop.outputs.clave2.subclave2 }}"
           echo "clave3: ${{ steps.vars_prop.outputs.mi_diccionario.clave3 }}"
+
+      ##########################################################################################
 
       - name: Leer variables del archivo others.yml
         id: vars2
