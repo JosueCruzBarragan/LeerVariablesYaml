@@ -33,4 +33,4 @@ jobs:
 
       - name: Usar las variables en otro paso
         run: |
-          echo yq '.a.b[0].c' other.yml
+          echo yq '.c.test[0]' other.yml
