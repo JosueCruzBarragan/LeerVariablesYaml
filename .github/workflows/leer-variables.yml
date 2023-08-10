@@ -6,13 +6,13 @@ on:
       - main
   workflow_dispatch:
     inputs:
-      name:
+      comment:
         type: choice
-        description: Personaje
-        default: monalisa
+        description: Comentar lineas
+        default: uncomment
         options: 
-        - monalisa
-        - cschleiden
+        - comment
+        - uncomment
       
 
 jobs:
@@ -54,5 +54,8 @@ jobs:
 
       - name: Leer variable desde el workflow
         run: |
-          echo "Nombre: ${{ github.event.inputs.name }}"
+          echo "Nombre: ${{ github.event.inputs.comment }}"
+
+      - name: Ejecutar script Bash
+        run: bash ./file.sh -c "${{ github.event.inputs.comment }}"
 
