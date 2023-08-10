@@ -1,6 +1,7 @@
 name: Mi Flujo de Trabajo
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
