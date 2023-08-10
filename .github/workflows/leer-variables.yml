@@ -1,12 +1,22 @@
-name: Lectura de variables desde YMAL
+name: Lectura de variables desde otro YMAL
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      name:
+        type: choice
+        description: Personaje
+        default: monalisa
+        options: 
+        - monalisa
+        - cschleiden
+      
 
 jobs:
-  Lectura_YAML:
+  Lectura_configVars_YAML:
     runs-on: ubuntu-latest
     
     steps:
@@ -40,4 +50,9 @@ jobs:
           echo "Valor de clave2.subclave1: ${{ steps.dict.outputs.subclave1 }}"
           echo "Valor de clave2.subclave2: ${{ steps.dict.outputs.subclave2 }}"
           echo "Valor de clave3: ${{ steps.dict.outputs.clave3 }}"
+          
+
+      - name: Leer variable desde el workflow
+        run: |
+          echo "Nombre: ${{ github.event.inputs.name }}"
 
