@@ -64,14 +64,16 @@ jobs:
         #####################
         # Crear diccionario #
         #####################
-      - name: Crear Todos var
-        id: JSON_CONTENT
-        run: |
-          echo "JSON_CONTENT=$(cat config_vars.yml | yq eval '.mi_diccionario' -r)" >> $GITHUB_OUTPUT
-
-      - name: Leer variable desde el workflow
-        run: |
-          echo "JSON_CONTENT: ${{ steps.JSON_CONTENT.outputs.clave1 }}"
+      - uses: actions-tools/yaml-outputs@v2
+        id: yaml
+        with:
+          file-path: './config_vars.yaml'
+      - run: |
+          echo "${{ steps.yaml.outputs.mi_diccionario__clave1 }}"
+          echo "${{ steps.yaml.outputs.mi_diccionario__clave2__subclave1 }}"
+          echo "${{ steps.yaml.outputs.mi_diccionario__clave2__subclave2 }}"
+          echo "${{ steps.yaml.outputs.mi_diccionario__clave2__subclave2 }}[1]"
+          echo "${{ env.mi_diccionario__clave2__subclave2 }}"
       
 
 
