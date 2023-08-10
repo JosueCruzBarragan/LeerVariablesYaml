@@ -59,7 +59,9 @@ jobs:
           echo "Nombre: ${{ github.event.inputs.comment }}"
 
       - name: Ejecutar script Bash
-        run: bash ./file.sh -c "${{ github.event.inputs.comment }}"
+        run: |
+          bash ./file.sh -c "${{ github.event.inputs.comment }}"
+          echo "Script listo"
 
         #####################
         # Crear diccionario #
@@ -68,12 +70,16 @@ jobs:
         id: yaml
         with:
           file-path: './config_vars.yml'
-      - run: |
+
+      - name: Validar solo con YAML
+        run: |
+          echo "Inicio"
           echo "${{ steps.yaml.outputs.mi_diccionario__clave1 }}"
           echo "${{ steps.yaml.outputs.mi_diccionario__clave2__subclave1 }}"
           echo "${{ steps.yaml.outputs.mi_diccionario__clave2__subclave2 }}"
+          echo "${{ steps.yaml.outputs.mi_diccionario__clave3 }}"
           echo "${{ steps.yaml.outputs.mi_diccionario__clave2__subclave2 }}[1]"
-          echo "${{ env.mi_diccionario__clave2__subclave2 }}"
+          echo "Fin"
       
 
 
