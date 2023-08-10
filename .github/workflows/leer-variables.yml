@@ -41,14 +41,14 @@ jobs:
           echo "::set-output name=clave1::$(cat config_vars.yml | yq eval '.mi_diccionario.clave1' -r)"
           echo "::set-output name=subclave1::$(cat config_vars.yml | yq eval '.mi_diccionario.clave2.subclave1' -r)"
           echo "::set-output name=subclave2::$(cat config_vars.yml | yq eval '.mi_diccionario.clave2.subclave2' -r)"
-          echo "{clave3}={$(cat config_vars.yml | yq eval '.mi_diccionario.clave3' -r)}" >> $GITHUB_OUTPUT
+          echo "clave3=$(cat config_vars.yml | yq eval '.mi_diccionario.clave3' -r)" >> $GITHUB_OUTPUT
         
       - name: Usar las variables como mi_diccionario en otro paso
         run: |
           echo "Valor de clave1: ${{ steps.dict.outputs.clave1 }}"
           echo "Valor de clave2.subclave1: ${{ steps.dict.outputs.subclave1 }}"
           echo "Valor de clave2.subclave2: ${{ steps.dict.outputs.subclave2 }}"
-          echo "Valor de clave3: ${{ steps.dict.outputs.clave3 }}"
+          echo "Valor de clave3: $clave3"
 
       ##########################################################################################
 
