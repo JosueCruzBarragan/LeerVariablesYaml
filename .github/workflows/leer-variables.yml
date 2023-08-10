@@ -1,32 +1,25 @@
-name: Mi Flujo de Trabajo
+name: Lectura de variables desde YMAL
 
 on:
   push:
     branches:
       - main
-      - 'fix/**'
-      - 'test/**'
-
-  #workflow_dispatch:
-  #  inputs:
-  #    dynamodb:
-  #      description: 'Activa la insercion de datos de la carpeta tablas DynamoDB'
-  #      required: false
-  #      default: false
-  #      type: boolean
 
 jobs:
-  mi_trabajo:
+  Lectura_YAML:
     runs-on: ubuntu-latest
     
     steps:
       - name: Checkout del repositorio
         uses: actions/checkout@v2
         
-      - name: Descargar yq-go
+      - name: Descargar yq # Referencia: https://github.com/mikefarah/yq
+        # 1) Descargar el archivo tar.gz
+        # 2) Extraer el archivo .tar.gz al directorio de trabajo actual
+        # 3) Moverlo a /usr/local/bin/
         run: |
           wget https://github.com/mikefarah/yq/releases/download/v4.13.2/yq_linux_amd64.tar.gz
-          tar xvf yq_linux_amd64.tar.gz
+          tar xf yq_linux_amd64.tar.gz
           mv yq_linux_amd64 /usr/local/bin/
         
       - name: Leer variables del archivo my_vars.yml
@@ -37,3 +30,7 @@ jobs:
       - name: Usar las variables en otro paso
         run: |
           echo "La variable var1 es ${{ steps.vars.outputs.var1 }}"
+
+      - name: Usar las variables en otro paso
+        run: |
+          echo yq '.a.b[0].c' other.yml
